@@ -14,43 +14,43 @@ app.use("/", express.static(__dirname + "/build"));
 app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 
 
-//Sentry
+// //Sentry
 
-const sentry_releasenumber =1.0;
-const sentry_environment = "DEV"
-//End
+// const sentry_releasenumber =1.0;
+// const sentry_environment = "DEV"
+// //End
 
 
-//Initialize Sentry with  dsn
+// //Initialize Sentry with  dsn
+
+// // Sentry.init({
+// //   dsn: "https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723",
+// //   integrations: [new Integrations.BrowserTracing()],
+
+// //   // Set tracesSampleRate to 1.0 to capture 100%
+// //   // of transactions for performance monitoring.
+// //   // We recommend adjusting this value in production
+// //   tracesSampleRate: 1.0,
+// // });
 
 // Sentry.init({
-//   dsn: "https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723",
-//   integrations: [new Integrations.BrowserTracing()],
-
-//   // Set tracesSampleRate to 1.0 to capture 100%
-//   // of transactions for performance monitoring.
-//   // We recommend adjusting this value in production
+//   dsn: 'https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723',
+//   release: sentry_releasenumber,
+//   environment:sentry_environment ,
 //   tracesSampleRate: 1.0,
+//   // beforeSend(event) {
+//   //   // Check if it is an exception, if so, show the report dialog
+//   //   if (event.exception) {
+//   //     Sentry.showReportDialog();
+//   //   }
+//   //   return event;
+//   // }
 // });
 
-Sentry.init({
-  dsn: 'https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723',
-  release: sentry_releasenumber,
-  environment:sentry_environment ,
-  tracesSampleRate: 1.0,
-  // beforeSend(event) {
-  //   // Check if it is an exception, if so, show the report dialog
-  //   if (event.exception) {
-  //     Sentry.showReportDialog();
-  //   }
-  //   return event;
-  // }
-});
-
-const transactionId = 1000
-Sentry.configureScope(scope => {
-  scope.setTag("transaction_id", transactionId);
-});
+// const transactionId = 1000
+// Sentry.configureScope(scope => {
+//   scope.setTag("transaction_id", transactionId);
+// });
 
 
 mongoose.connect(
