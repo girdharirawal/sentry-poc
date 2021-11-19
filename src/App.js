@@ -11,8 +11,11 @@ import ReactDOM from "react-dom";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 
-const sentry_releasenumber =1.0;
-const sentry_environment = "DEV"
+const sentry_releasenumber =process.env.RELEASE_NUMBER
+const sentry_environment = process.env.ENVIRONMENT
+const sentry_dsn=process.env.SENTRY_DNS;
+const transcationid=process.env.TRANSACTION_ID;
+
 //End
 
 
@@ -28,23 +31,22 @@ const sentry_environment = "DEV"
 //   tracesSampleRate: 1.0,
 // });
 
-// Sentry.init({
-//   dsn: '',
-//   release: sentry_releasenumber,
-//   environment:sentry_environment ,
-//   tracesSampleRate: 1.0,
-//   // beforeSend(event) {
-//   //   // Check if it is an exception, if so, show the report dialog
-//   //   if (event.exception) {
-//   //     Sentry.showReportDialog();
-//   //   }
-//   //   return event;
-//   // }
-// });
+Sentry.init({
+  dsn: sentry_dsn,
+  release: sentry_releasenumber,
+  environment:sentry_environment ,
+  tracesSampleRate: 1.0,
+  // beforeSend(event) {
+  //   // Check if it is an exception, if so, show the report dialog
+  //   if (event.exception) {
+  //     Sentry.showReportDialog();
+  //   }
+  //   return event;
+  // }
+});
 
-const transactionId = 1000
 Sentry.configureScope(scope => {
-  scope.setTag("transaction_id", transactionId);
+  scope.setTag("transaction_id", transcationid);
 });
 
 class App extends React.Component {
@@ -61,12 +63,12 @@ class App extends React.Component {
               <Route path="/admin" component={AdminScreen} />
               <Route path="/" component={HomeScreen} exact />
             </main>
-            {/* <button
-                        onClick={throwKnownError1}
+            <button
+                        onClick={() => Sentry.showReportDialog()}
                         className="button primary"
                       >
-                        Click to generate error
-                      </button> */}
+                        Contact us
+                      </button>
             <footer>All right is reserved.</footer>
           </div>
         </BrowserRouter>

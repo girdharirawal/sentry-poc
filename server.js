@@ -1,12 +1,19 @@
 
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const shortid = require("shortid");
-const dburi = "";
+
+
+const dburi = process.env.MONGO_URI;
+const sentrydsn=process.env.SENTRY_DNS;
+const sentry_releasenumber=process.env.RELEASE_NUMBER;
+const sentry_environment = process.env.ENVIRONMENT;
+console.log("URL"+ dburi);
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -33,19 +40,20 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 // //   tracesSampleRate: 1.0,
 // // });
 
-// Sentry.init({
-//   dsn: '',
-//   release: sentry_releasenumber,
-//   environment:sentry_environment ,
-//   tracesSampleRate: 1.0,
-//   // beforeSend(event) {
-//   //   // Check if it is an exception, if so, show the report dialog
-//   //   if (event.exception) {
-//   //     Sentry.showReportDialog();
-//   //   }
-//   //   return event;
-//   // }
-// });
+
+Sentry.init({
+  dsn: sentrydsn,
+  release: sentry_releasenumber,
+  environment:sentry_environment ,
+  tracesSampleRate: 1.0,
+  // beforeSend(event) {
+  //   // Check if it is an exception, if so, show the report dialog
+  //   if (event.exception) {
+  //     Sentry.showReportDialog();
+  //   }
+  //   return event;
+  // }
+});
 
 // const transactionId = 1000
 // Sentry.configureScope(scope => {
