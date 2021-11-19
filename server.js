@@ -6,7 +6,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const shortid = require("shortid");
-const dburi = "mongodb+srv://admin:admin@cluster0.voub4.mongodb.net/react-shopping-cart-db?retryWrites=true&w=majority";
+const dburi = "";
 const app = express();
 app.use(bodyParser.json());
 
@@ -24,7 +24,7 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 // //Initialize Sentry with  dsn
 
 // // Sentry.init({
-// //   dsn: "https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723",
+// //   dsn: "",
 // //   integrations: [new Integrations.BrowserTracing()],
 
 // //   // Set tracesSampleRate to 1.0 to capture 100%
@@ -34,7 +34,7 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 // // });
 
 // Sentry.init({
-//   dsn: 'https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723',
+//   dsn: '',
 //   release: sentry_releasenumber,
 //   environment:sentry_environment ,
 //   tracesSampleRate: 1.0,

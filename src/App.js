@@ -19,7 +19,7 @@ const sentry_environment = "DEV"
 //Initialize Sentry with  dsn
 
 // Sentry.init({
-//   dsn: "https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723",
+//   dsn: "",
 //   integrations: [new Integrations.BrowserTracing()],
 
 //   // Set tracesSampleRate to 1.0 to capture 100%
@@ -28,19 +28,19 @@ const sentry_environment = "DEV"
 //   tracesSampleRate: 1.0,
 // });
 
-Sentry.init({
-  dsn: 'https://4697c127d85848ac9a389e06ea2244b4@o1063374.ingest.sentry.io/6070723',
-  release: sentry_releasenumber,
-  environment:sentry_environment ,
-  tracesSampleRate: 1.0,
-  // beforeSend(event) {
-  //   // Check if it is an exception, if so, show the report dialog
-  //   if (event.exception) {
-  //     Sentry.showReportDialog();
-  //   }
-  //   return event;
-  // }
-});
+// Sentry.init({
+//   dsn: '',
+//   release: sentry_releasenumber,
+//   environment:sentry_environment ,
+//   tracesSampleRate: 1.0,
+//   // beforeSend(event) {
+//   //   // Check if it is an exception, if so, show the report dialog
+//   //   if (event.exception) {
+//   //     Sentry.showReportDialog();
+//   //   }
+//   //   return event;
+//   // }
+// });
 
 const transactionId = 1000
 Sentry.configureScope(scope => {
