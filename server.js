@@ -8,11 +8,11 @@ const mongoose = require("mongoose");
 const shortid = require("shortid");
 
 
-const dburi = process.env.MONGO_URI;
-const sentrydsn=process.env.SENTRY_DNS;
-const sentry_releasenumber=process.env.RELEASE_NUMBER;
-const sentry_environment = process.env.ENVIRONMENT;
-console.log("URL"+ dburi);
+const dburi = process.env.REACT_APP_MONGO_URI;
+const sentrydsn=process.env.REACT_APP_SENTRY_DNS;
+const sentry_releasenumber=process.env.REACT_APP_RELEASE_NUMBER;
+const sentry_environment = process.env.REACT_APP_ENVIRONMENT;
+console.log("sentry URL"+ dburi);
 
 const app = express();
 app.use(bodyParser.json());
