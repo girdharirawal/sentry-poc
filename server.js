@@ -20,7 +20,6 @@ app.use(bodyParser.json());
 app.use("/", express.static(__dirname + "/build"));
 app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 
-
 // //Sentry
 
 // const sentry_releasenumber =1.0;
@@ -54,11 +53,10 @@ Sentry.init({
   //   return event;
   // }
 });
-
-// const transactionId = 1000
-// Sentry.configureScope(scope => {
-//   scope.setTag("transaction_id", transactionId);
-// });
+ const transactionId = 1000
+ Sentry.configureScope(scope => {
+   scope.setTag("transaction_id", transactionId);
+ });
 
 
 mongoose.connect(
@@ -83,12 +81,6 @@ const Product = mongoose.model(
 );
 
 app.get("/api/products", async (req, res) => {
-  
-  // Sentry.addBreadcrumb({
-  //   category: 'Products',
-  //   message: 'List all products',
-  //   level: 'info'
-  // });
   const products = await Product.find({});
   res.send(products);
 });
@@ -142,6 +134,18 @@ app.post("/api/orders", async (req, res) => {
     return res.send({ message: "Data is required." });
   }
   const order = await Order(req.body).save();
+
+  Sentry.withScope(function(scope) {
+    scope.setLevel("info");
+    scope.setExtra("Order details", req.body);
+    Sentry.captureMessage("NEW ORDER \n Name " + req.body.name + " Total" + req.body.total  + " Email" + req.body.email);
+    // Sentry.captureException(new Error("NEW ORDER"), {
+    //   tags: {
+    //     section: "articles",
+    //   },
+    // });
+  });
+
   res.send(order);
 });
 app.get("/api/orders", async (req, res) => {
